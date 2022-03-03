@@ -1,0 +1,25 @@
+version: "3.4"
+services:
+  consumer:
+    image: customer-service:vf
+    networks:
+      - bank-compose
+    depends_on:
+      - producer
+
+  gateway:
+    image: gateway_service:v1
+    networks:
+      - bank-compose
+    depends_on:
+      - producer
+
+  producer:
+    image: config-server:v1
+    ports:
+      - "8090:8090"
+    networks:
+      - bank-compose
+
+networks:
+  bank-compose:
